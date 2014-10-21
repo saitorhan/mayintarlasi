@@ -47,6 +47,7 @@
             this.Controls.Add(this.panelTarla);
             this.Name = "FormMayinTarlasi";
             this.Text = "Mayın Tarlası";
+            this.Load += new System.EventHandler(this.FormMayinTarlasi_Load);
             this.ResumeLayout(false);
 
         }
