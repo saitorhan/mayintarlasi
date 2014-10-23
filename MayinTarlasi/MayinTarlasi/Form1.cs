@@ -6,6 +6,7 @@ namespace MayinTarlasi
 {
     public partial class FormMayinTarlasi : Form
     {
+        private int puan;
         public FormMayinTarlasi()
         {
             InitializeComponent();
@@ -18,6 +19,7 @@ namespace MayinTarlasi
 
         private void TarlayiHazirla()
         {
+            puan = 0;
             panelTarla.Controls.Clear();
             for (int i = 0; i < 10; i++)
             {
@@ -30,6 +32,7 @@ namespace MayinTarlasi
                     b.TextAlign=ContentAlignment.MiddleCenter;
                     b.Location=new Point(i*50,j*50);
                     b.Tag = "-";
+                    b.Click += b_Click;
                     panelTarla.Controls.Add(b);
                 }
             }
@@ -47,6 +50,30 @@ namespace MayinTarlasi
                 {
                     button.Tag = "+";
                     s++;
+                }
+            }
+        }
+
+        void b_Click(object sender, EventArgs e)
+        {
+            Button button = sender as Button;
+            string durum = (string) button.Tag;
+            if (durum.Equals("-"))
+            {
+                puan += 10;
+                button.Text = ":)";
+                button.Enabled = false;
+            }
+            else
+            {
+                DialogResult result = MessageBox.Show(String.Format("Oyun bitti.\nPuanınız: {0}\nTekrar oynamak ister misiniz?", puan), "Mayın Tarlası", MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+                if (result==DialogResult.Yes)
+                {
+                    TarlayiHazirla();
+                }
+                else
+                {
+                    Application.Exit();
                 }
             }
         }
